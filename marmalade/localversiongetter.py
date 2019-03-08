@@ -28,12 +28,16 @@ class DefaultLocalVersionResolver(LocalVersionResolver):
             return []
 
     def get_local_versions(self) -> List[Version]:
-        def fp(dir_name): return join(self._env_full_path, dir_name)
+        def fp(dir_name):
+            return join(self._env_full_path, dir_name)
 
-        def dir_and_not_link(dir_name): return (
-            isdir(fp(dir_name)) and not(islink(fp(dir_name))))
-        versions = list(
-            map(Version, [i for i in self.__get_local_dirs__() if dir_and_not_link(i)]))
+        def dir_and_not_link(dir_name):
+            return (isdir(fp(dir_name)) and not(islink(fp(dir_name))))
+
+        def local_dirs_only():
+            return [i for i in self.__get_local_dirs__() if dir_and_not_link(i)]
+
+        versions = list(map(Version, local_dirs_only()))
         versions.sort(reverse=True)
         return versions
 

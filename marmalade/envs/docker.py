@@ -13,13 +13,13 @@ class _EnvDockerModules(Env):
                  repo: str,
                  download_link_postfix: str,
                  filename: str):
-        self._repo = repo
-        self._download_link_postfix = download_link_postfix
-        self._filename = filename
-        rvr = RemoteVersionResolverGitHub(self._repo)
+        rvr = RemoteVersionResolverGitHub(repo)
         super().__init__(name=name,
                          envs_full_path=envs_full_path,
                          remote_version_resolver=rvr)
+        self._repo = repo
+        self._download_link_postfix = download_link_postfix
+        self._filename = filename
 
     def get_download_link(self, version: Version) -> str:
         ver_str = version.get_version_string()
