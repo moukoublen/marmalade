@@ -4,8 +4,6 @@ import os
 import re
 import tempfile
 
-GITHUB_REL = "https://github.com/{}/releases/download/{}"
-
 
 def get_filename_from_header(url: str) -> str:
     headers = requests.head(url, allow_redirects=True).headers
@@ -18,14 +16,10 @@ def get_filename_from_header(url: str) -> str:
     return filename[0]
 
 
-def get_filename_from_url(url: str) -> str:
-    return url.split('/').pop()
-
-
 def get_file_name(url: str) -> str:
     filename = get_filename_from_header(url)
     if(filename == ""):
-        filename = get_filename_from_url(url)
+        filename = url.split('/').pop()
     return filename
 
 
@@ -47,4 +41,5 @@ def get_file(url: str) -> str:
 
 
 def github_download_link(repo: str, postfix_file: str) -> str:
-    return GITHUB_REL.format(repo, postfix_file)
+    return "https://github.com/{}/releases/download/{}".format(repo,
+                                                               postfix_file)

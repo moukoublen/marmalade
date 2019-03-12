@@ -35,7 +35,8 @@ class DefaultLocalVersionResolver(LocalVersionResolver):
             return (isdir(fp(dir_name)) and not(islink(fp(dir_name))))
 
         def local_dirs_only():
-            return [i for i in self.__get_local_dirs__() if dir_and_not_link(i)]
+            return [i for i in self.__get_local_dirs__()
+                    if dir_and_not_link(i)]
 
         versions = list(map(Version, local_dirs_only()))
         versions.sort(reverse=True)
