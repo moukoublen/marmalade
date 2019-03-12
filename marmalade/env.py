@@ -64,7 +64,8 @@ class Env(ABC):
         downloaded_file_path = get_file(self.get_download_link(version))
         self.create_version_local_dir(version)
         self.install_file(downloaded_file_path,
-                          self.get_dir_for_version_fp(version), version)
+                          self.get_dir_for_version_fp(version), 
+                          version)
         os.remove(downloaded_file_path)
 
     def make_default(self, version: Version) -> bool:
