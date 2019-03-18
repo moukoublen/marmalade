@@ -5,14 +5,14 @@
     "python.linting.pep8Enabled": true,
 
     //ubuntu
-    "python.formatting.autopep8Path": "/usr/bin/autopep8",
-    "python.linting.pylintPath": "/usr/bin/pylint3",
-    "python.linting.flake8Path": "/usr/bin/flake8",
-    "python.linting.pep8Path": "/usr/bin/pep8",
+    // "python.formatting.autopep8Path": "/usr/bin/autopep8",
+    // "python.linting.pylintPath": "/usr/bin/pylint3",
+    // "python.linting.flake8Path": "/usr/bin/flake8",
+    // "python.linting.pep8Path": "/usr/bin/pep8",
 
     //fedora
-    // "python.formatting.autopep8Path": "/usr/bin/python3-autopep8",
-    // "python.linting.pylintPath": "/usr/bin/pylint-3",
-    // "python.linting.flake8Path": "/usr/bin/python3-flake8",
-    // "python.linting.pep8Path": "/usr/bin/python3-pep8",
+    "python.formatting.autopep8Path": "/usr/bin/python3-autopep8",
+    "python.linting.pylintPath": "/usr/bin/pylint-3",
+    "python.linting.flake8Path": "/usr/bin/python3-flake8",
+    "python.linting.pep8Path": "/usr/bin/python3-pep8",
 }
