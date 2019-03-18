@@ -25,24 +25,3 @@ class RemoteVersionResolverGitHub(RemoteVersionResolver):
 
     def get_latest_lts_version(self) -> Version:
         self.get_latest_version()
-
-
-class RemoteVersionResolverNodeJS(RemoteVersionResolver):
-    __URL = 'https://nodejs.org/dist/index.json'
-
-    def __init__(self):
-        self.url = 'https://nodejs.org/dist/index.json'
-
-    def __get(self):
-        return requests.get(url=RemoteVersionResolverNodeJS.__URL).json()
-
-    def get_latest_version(self) -> Version:
-        resp = self.__get()
-        versions = map(Version, [item['version'][1:] for item in resp])
-        return max(versions)
-
-    def get_latest_lts_version(self) -> Version:
-        resp = self.__get()
-        versions = map(Version,
-                       [item['version'][1:] for item in resp if item['lts']])
-        return max(versions)

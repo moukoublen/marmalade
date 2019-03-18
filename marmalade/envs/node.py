@@ -1,7 +1,26 @@
 from subprocess import call
+import requests
 from ..env import Env
 from ..version import Version
-from ..remoteversiongetter import RemoteVersionResolverNodeJS
+from ..remoteversiongetter import RemoteVersionResolver
+
+
+class RemoteVersionResolverNodeJS(RemoteVersionResolver):
+    def __init__(self):
+        self.url = 'https://nodejs.org/dist/index.json'
+
+    def get_latest_version(self) -> Version:
+        resp = requests.get(url=self.url).json()
+        versions = map(Version, [item['version'][1:] for item in resp])
+        return max(versions)
+
+    def get_latest_lts_version(self) -> Version:
+        resp = requests.get(url=self.url).json()
+        versions = map(
+            Version,
+            [item['version'][1:] for item in resp if item['lts']]
+        )
+        return max(versions)
 
 
 class EnvNode(Env):
