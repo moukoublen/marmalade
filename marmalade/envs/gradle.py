@@ -8,11 +8,11 @@ from ..remoteversiongetter import RemoteVersionResolver
 
 class RemoteVersionResolverGradle(RemoteVersionResolver):
     def __init__(self):
-        self.url = 'https://api.github.com/repos/gradle/gradle/releases/latest'
+        self.url = "https://api.github.com/repos/gradle/gradle/releases/latest"
 
     def get_latest_version(self) -> Version:
         resp = requests.get(url=self.url).json()
-        strVer = resp['name']
+        strVer = resp["name"]
         return Version(strVer)
 
     def get_latest_lts_version(self) -> Version:

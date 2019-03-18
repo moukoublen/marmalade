@@ -22,7 +22,7 @@ _LOG_LEVEL = {
     3: logging.DEBUG,
 }
 
-# LOG_FORMAT = ('%(name)-25s %(levelname)-8s %(message)s')
+# LOG_FORMAT = ("%(name)-25s %(levelname)-8s %(message)s")
 
 
 def configure_logging(verbosity):

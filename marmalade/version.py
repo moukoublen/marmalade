@@ -43,4 +43,4 @@ class Version(_VersionComparable):
         return self.__str__()
 
 
-ZERO_VERSION = Version('0.0.0')
+ZERO_VERSION = Version("0.0.0")

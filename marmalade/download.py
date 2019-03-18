@@ -7,10 +7,10 @@ import tempfile
 
 def get_filename_from_header(url: str) -> str:
     headers = requests.head(url, allow_redirects=True).headers
-    cd = headers.get('content-disposition')
+    cd = headers.get("content-disposition")
     if not(cd):
         return ""
-    filename = re.findall('filename=(.+)', cd)
+    filename = re.findall("filename=(.+)", cd)
     if len(filename) == 0:
         return ""
     return filename[0]
@@ -19,7 +19,7 @@ def get_filename_from_header(url: str) -> str:
 def get_file_name(url: str) -> str:
     filename = get_filename_from_header(url)
     if(filename == ""):
-        filename = url.split('/').pop()
+        filename = url.split("/").pop()
     return filename
 
 
@@ -35,7 +35,7 @@ def get_file(url: str) -> str:
     filename = get_file_name(url)
     resp = requests.get(url, allow_redirects=True, stream=True)
     full_path_file = os.path.join(download_dir, filename)
-    with open(full_path_file, 'wb') as file:
+    with open(full_path_file, "wb") as file:
         shutil.copyfileobj(resp.raw, file)
     return full_path_file
 
