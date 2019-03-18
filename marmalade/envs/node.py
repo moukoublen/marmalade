@@ -1,8 +1,8 @@
 from subprocess import call
 import requests
-from ..utils.env import Env
-from ..utils.version import Version
-from ..utils.remoteversiongetter import RemoteVersionResolver
+from marmalade.utils.env import Env
+from marmalade.utils.version import Version
+from marmalade.utils.remoteversiongetter import RemoteVersionResolver
 
 
 class RemoteVersionResolverNodeJS(RemoteVersionResolver):
@@ -28,7 +28,8 @@ class EnvNode(Env):
         super().__init__(name="node",
                          envs_full_path=envs_full_path,
                          remote_version_resolver=RemoteVersionResolverNodeJS())
-        self.__NODE_REL = "https://nodejs.org/dist/v{}/node-v{}-linux-x64.tar.xz"
+        self.__NODE_REL = \
+            "https://nodejs.org/dist/v{}/node-v{}-linux-x64.tar.xz"
 
     def get_download_link(self, version: Version) -> str:
         ver_str = version.get_version_string()

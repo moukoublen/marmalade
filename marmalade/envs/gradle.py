@@ -1,9 +1,9 @@
 from subprocess import call
 from os import system
 import requests
-from ..utils.env import Env
-from ..utils.version import Version
-from ..utils.remoteversiongetter import RemoteVersionResolver
+from marmalade.utils.env import Env
+from marmalade.utils.version import Version
+from marmalade.utils.remoteversiongetter import RemoteVersionResolver
 
 
 class RemoteVersionResolverGradle(RemoteVersionResolver):

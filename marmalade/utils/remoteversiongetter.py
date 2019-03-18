@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 import requests
-from .version import Version
+from marmalade.utils.version import Version
 
 
 class RemoteVersionResolver(ABC):

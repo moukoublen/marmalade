@@ -1,9 +1,9 @@
 from subprocess import call
 from os.path import join
-from ..utils.env import Env
-from ..utils.version import Version
-from ..utils.download import github_download_link
-from ..utils.remoteversiongetter import RemoteVersionResolverGitHub
+from marmalade.utils.env import Env
+from marmalade.utils.version import Version
+from marmalade.utils.download import github_download_link
+from marmalade.utils.remoteversiongetter import RemoteVersionResolverGitHub
 
 
 class _EnvDockerModules(Env):
