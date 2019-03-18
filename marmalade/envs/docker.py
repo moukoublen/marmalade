@@ -1,9 +1,9 @@
 from subprocess import call
 from os.path import join
-from ..env import Env
-from ..version import Version
-from ..download import github_download_link
-from ..remoteversiongetter import RemoteVersionResolverGitHub
+from ..utils.env import Env
+from ..utils.version import Version
+from ..utils.download import github_download_link
+from ..utils.remoteversiongetter import RemoteVersionResolverGitHub
 
 
 class _EnvDockerModules(Env):

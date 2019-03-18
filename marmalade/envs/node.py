@@ -1,8 +1,8 @@
 from subprocess import call
 import requests
-from ..env import Env
-from ..version import Version
-from ..remoteversiongetter import RemoteVersionResolver
+from ..utils.env import Env
+from ..utils.version import Version
+from ..utils.remoteversiongetter import RemoteVersionResolver
 
 
 class RemoteVersionResolverNodeJS(RemoteVersionResolver):

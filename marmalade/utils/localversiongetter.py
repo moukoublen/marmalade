@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import os
 from os.path import isdir, islink, join
 from typing import List  # , Tuple
-from .version import Version, ZERO_VERSION
+from version import Version, ZERO_VERSION
 
 
 class LocalVersionResolver(ABC):

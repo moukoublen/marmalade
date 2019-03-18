@@ -1,11 +1,11 @@
 from abc import ABC, abstractmethod
 import os
 from os.path import islink, join, exists
-from .download import get_file
-from .version import Version
-from .remoteversiongetter import RemoteVersionResolver
-from .localversiongetter import LocalVersionResolver
-from .localversiongetter import DefaultLocalVersionResolver
+from download import get_file
+from version import Version
+from remoteversiongetter import RemoteVersionResolver
+from localversiongetter import LocalVersionResolver
+from localversiongetter import DefaultLocalVersionResolver
 
 
 class Env(ABC):
