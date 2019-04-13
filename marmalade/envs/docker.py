@@ -40,7 +40,7 @@ class _EnvDockerModules(Env):
 class EnvDockerCompose(_EnvDockerModules):
     def __init__(self, envs_full_path: str):
         super().__init__(
-            name="compose",
+            name="docker-compose",
             envs_full_path=envs_full_path,
             repo="docker/compose",
             download_link_postfix="{}/docker-compose-Linux-x86_64",

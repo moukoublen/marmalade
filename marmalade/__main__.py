@@ -1,3 +1,8 @@
-from .main import cli
+from marmalade.main import cli
 
-cli.main()
+
+try:
+    cli.main()
+except Exception as e:
+    print("ERROR: {}".format(str(e)))
+

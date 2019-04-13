@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 import os
 from os.path import islink, join, exists
 from marmalade.utils.download import get_file
-from marmalade.utils.version import Version
+from marmalade.utils.version import Version, ZERO_VERSION
 from marmalade.utils.remoteversiongetter import RemoteVersionResolver
 from marmalade.utils.localversiongetter import LocalVersionResolver
 from marmalade.utils.localversiongetter import DefaultLocalVersionResolver
@@ -17,6 +17,12 @@ class Env(ABC):
         self._envs_full_path = envs_full_path
         self._rvr = remote_version_resolver
         self._lvr = self.__create_lvr__()
+
+    def get_name(self) -> str:
+        return self._name
+
+    def is_installed(self) -> bool:
+        return self.get_local_version != ZERO_VERSION
 
     def __create_lvr__(self) -> LocalVersionResolver:
         return DefaultLocalVersionResolver(

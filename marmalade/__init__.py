@@ -9,6 +9,7 @@ This module
 import logging
 import sys
 from logging import NullHandler
+from marmalade.main.config import ConfigStore
 
 # Default null log config
 LOG = logging.getLogger(__name__)
@@ -34,3 +35,5 @@ def configure_logging(verbosity):
     # handler.setFormatter(logging.Formatter(LOG_FORMAT))
     LOG.addHandler(handler)
     LOG.setLevel(_LOG_LEVEL[verbosity])
+
+ConfigStore.init_config()

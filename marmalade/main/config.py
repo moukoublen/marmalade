@@ -14,12 +14,6 @@ class ConfigStore():
         return ConfigStore.config is None
 
     @staticmethod
-    def __init_config():
+    def init_config():
         ConfigStore.config = MarmaladeConfig()
         ConfigStore.config.envs_path = str(Path.home()) + "/.marmalade.envs"
-
-    @staticmethod
-    def get_config() -> MarmaladeConfig:
-        if ConfigStore.is_empty:
-            ConfigStore.__init_config()
-        return ConfigStore.config

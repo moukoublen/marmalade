@@ -15,4 +15,14 @@
     "python.linting.pylintPath": "/usr/bin/pylint-3",
     "python.linting.flake8Path": "/usr/bin/python3-flake8",
     "python.linting.pep8Path": "/usr/bin/python3-pep8",
+
+    "files.watcherExclude": {
+        "**/.git/**": true,
+        "**/__pycache__/": true
+    },
+
+    "files.exclude": {
+        "**/.git/**": true,
+        "**/__pycache__/": true
+    }
 }
