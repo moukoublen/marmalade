@@ -1,7 +1,7 @@
-from marmalade import LOG
 from abc import ABC, abstractmethod
 import os
 from os.path import islink, join, exists
+from marmalade.utils.logger import LOG
 from marmalade.utils.download import get_file
 from marmalade.utils.version import Version, ZERO_VERSION
 from marmalade.utils.remoteversiongetter import RemoteVersionResolver
@@ -39,9 +39,10 @@ class Env(ABC):
             os.makedirs(self.get_env_full_path())
 
     def create_version_local_dir(self, ver: Version):
-        full_path = join(self.get_env_full_path(), ver.get_version_string())
+        full_path = self.get_dir_for_version_fp(ver)
         if not(exists(full_path)):
             os.makedirs(full_path)
+        return full_path
 
     def get_env_default_dir_link_fp(self) -> str:
         return join(self.get_env_full_path(), "default")
@@ -60,23 +61,26 @@ class Env(ABC):
 
     def update(self):
         if(not(self.is_update_available())):
-            LOG.debug("Env %s is already updated in latest version %s",
-                      self.get_name(),
-                      str(self.get_local_version().get_version_string()))
+            LOG.log_already_updated(self)
             return False
         latest_version = self.get_remote_version()
+        LOG.log_update_start(self, latest_version)
         self.install_version(latest_version)
         self.make_default(latest_version)
         return True
 
     def install_version(self, version: Version):
         self.create_env_local_dir()
+        dnl_link = self.get_download_link(version)
+        LOG.log_downloading(dnl_link)
         downloaded_file_path = get_file(self.get_download_link(version))
-        self.create_version_local_dir(version)
+        install_path = self.create_version_local_dir(version)
+        LOG.log_file_download_complete(downloaded_file_path, install_path)
         self.install_file(downloaded_file_path,
-                          self.get_dir_for_version_fp(version),
+                          install_path,
                           version)
         os.remove(downloaded_file_path)
+        LOG.log_install_complete(self, version)
 
     def make_default(self, version: Version) -> bool:
         default = self.get_env_default_dir_link_fp()

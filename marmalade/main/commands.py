@@ -1,4 +1,4 @@
-from marmalade import LOG
+from marmalade.utils.logger import LOG
 from marmalade.utils.env import Env
 from marmalade.utils.version import Version
 from abc import ABC, abstractmethod
@@ -39,7 +39,7 @@ class InstallCommand(Command):
         if not self.env.is_installed():
             self.env.install_version(ver_to_install)
         else:
-            print("Env {} already instlled".format(self.env.get_name()))
+            print("{} already instlled".format(self.env.get_name()))
 
 
 class UpdateCommand(Command):
@@ -50,5 +50,4 @@ class UpdateCommand(Command):
         return "UpdateCommand({})".format(self.env.get_name())
 
     def execute(self):
-        LOG.debug("Updating env %s", self.env.get_name())
         self.env.update()
