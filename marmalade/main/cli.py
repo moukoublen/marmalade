@@ -5,7 +5,7 @@ from marmalade.main.commands import Command, UpdateCommand, InstallCommand
 from marmalade.main.errors import Exceptions
 from marmalade.envs import Environments
 from marmalade.utils.env import Env
-from marmalade import LOG, configure_logging
+from marmalade import LOG, set_log_level
 
 
 def _parse_single_update_command(env: str) -> UpdateCommand:
@@ -55,8 +55,7 @@ def _args_parse():
     parser.add_argument("command", choices=["install", "update"])
     args, restArgs = parser.parse_known_args()
 
-    configure_logging(args.verbose)
-    LOG.debug("Log level set to %s.", args.verbose)
+    set_log_level(args.verbose)
 
     commands = _parse_command_data(args.command, restArgs)
     return {
