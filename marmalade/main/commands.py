@@ -21,25 +21,26 @@ class InstallCommand(Command):
 
     def __str__(self):
         return "InstallCommand({}@{})".format(
-            self.env.get_name(), 
+            self.env.get_name(),
             str(self.version)
         )
 
-    def latest_version(self) -> bool:
+    def is_latest_version(self) -> bool:
         return self.version is None
 
     def get_version_to_install(self) -> Version:
-        if(self.latest_version):
+        if(self.is_latest_version()):
             return self.env.get_remote_version()
         else:
             return self.version
 
     def execute(self):
         ver_to_install = self.get_version_to_install()
-        if not self.env.is_installed():
+        LOG.log_install_version_start(self.env, ver_to_install)
+        if not self.env.is_version_installed(ver_to_install):
             self.env.install_version(ver_to_install)
         else:
-            print("{} already instlled".format(self.env.get_name()))
+            LOG.log_version_already_installed(self.env, ver_to_install)
 
 
 class UpdateCommand(Command):

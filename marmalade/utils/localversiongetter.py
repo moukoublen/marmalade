@@ -46,3 +46,7 @@ class DefaultLocalVersionResolver(LocalVersionResolver):
         versions = self.get_local_versions()
         versions.append(ZERO_VERSION)
         return max(versions)
+
+    def has_version_installed(self, v: Version) -> bool:
+        loval_versions = self.get_local_versions()
+        return v in loval_versions

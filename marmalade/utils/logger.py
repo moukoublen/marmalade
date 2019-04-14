@@ -71,9 +71,19 @@ class LoggerWrapper(object):
                         install_path)
 
     def log_install_complete(self, env, version):
-        self._log.debug("%s version %s installation completed", 
+        self._log.debug("%s version %s installation completed",
                         env.get_name(),
-                        str(env.get_local_version().get_version_string()))
+                        version.get_version_string())
+
+    def log_install_version_start(self, env, version):
+        self._log.debug("%s version %s will be installed",
+                        env.get_name(),
+                        version.get_version_string())
+
+    def log_version_already_installed(self, env, version):
+        self._log.debug("%s version %s is allready installed",
+                        env.get_name(),
+                        version.get_version_string())
 
 
 LOG = LoggerWrapper()

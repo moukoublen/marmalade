@@ -25,6 +25,9 @@ class Env(ABC):
     def is_installed(self) -> bool:
         return self.get_local_version() != ZERO_VERSION
 
+    def is_version_installed(self, v: Version):
+        return self._lvr.has_version_installed(v)
+
     def __create_lvr__(self) -> LocalVersionResolver:
         return DefaultLocalVersionResolver(
             envs_abs_path=self._envs_full_path,
