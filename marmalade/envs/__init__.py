@@ -5,6 +5,7 @@ from marmalade.utils.env import Env
 from marmalade.envs.docker import EnvDockerCompose, EnvDockerMachine
 from marmalade.envs.gradle import EnvGradle
 from marmalade.envs.node import EnvNode
+from marmalade.envs.maven import EnvMaven
 
 
 def _create_envs(*env_constructor):
@@ -18,7 +19,8 @@ def _default_envs():
         EnvNode,
         EnvGradle,
         EnvDockerCompose,
-        EnvDockerMachine
+        EnvDockerMachine,
+        EnvMaven
     )
 
 
