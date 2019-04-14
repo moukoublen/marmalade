@@ -1,3 +1,4 @@
+from marmalade import LOG
 from abc import ABC, abstractmethod
 import os
 from os.path import islink, join, exists
@@ -22,7 +23,7 @@ class Env(ABC):
         return self._name
 
     def is_installed(self) -> bool:
-        return self.get_local_version != ZERO_VERSION
+        return self.get_local_version() != ZERO_VERSION
 
     def __create_lvr__(self) -> LocalVersionResolver:
         return DefaultLocalVersionResolver(
@@ -59,6 +60,9 @@ class Env(ABC):
 
     def update(self):
         if(not(self.is_update_available())):
+            LOG.debug("Env %s is already updated in latest version %s",
+                      self.get_name(),
+                      str(self.get_local_version().get_version_string()))
             return False
         latest_version = self.get_remote_version()
         self.install_version(latest_version)

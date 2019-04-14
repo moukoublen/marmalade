@@ -55,4 +55,4 @@ class Environments(metaclass=_Environments_MetaClass):
 
     @classmethod
     def get_installed(c) -> List[Env]:
-        list(filter(lambda e: e.is_installed(), c))
+        return list(filter(lambda e: e.is_installed(), c))

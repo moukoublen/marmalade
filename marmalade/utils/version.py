@@ -31,7 +31,10 @@ class _VersionComparable(ABC):
 
 class Version(_VersionComparable):
     def __init__(self, version_string):
-        self.__version_string = version_string
+        if version_string.startswith("v"):
+            self.__version_string = version_string[1:]
+        else:
+            self.__version_string = version_string
 
     def get_version_string(self):
         return self.__version_string

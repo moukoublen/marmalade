@@ -1,3 +1,4 @@
+from marmalade import LOG
 from marmalade.utils.env import Env
 from marmalade.utils.version import Version
 from abc import ABC, abstractmethod
@@ -8,11 +9,21 @@ class Command(ABC):
     def execute(self):
         pass
 
+    @abstractmethod
+    def __str__(self):
+        pass
+
 
 class InstallCommand(Command):
     def __init__(self, env: Env, version: Version = None):
         self.env = env
         self.version = version
+
+    def __str__(self):
+        return "InstallCommand({}@{})".format(
+            self.env.get_name(), 
+            str(self.version)
+        )
 
     def latest_version(self) -> bool:
         return self.version is None
@@ -35,5 +46,9 @@ class UpdateCommand(Command):
     def __init__(self, env: Env):
         self.env = env
 
+    def __str__(self):
+        return "UpdateCommand({})".format(self.env.get_name())
+
     def execute(self):
+        LOG.debug("Updating env %s", self.env.get_name())
         self.env.update()

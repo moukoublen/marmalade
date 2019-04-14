@@ -1,8 +1,9 @@
 from marmalade.main import cli
-
+from marmalade import LOG
+import traceback
 
 try:
     cli.main()
 except Exception as e:
-    print("ERROR: {}".format(str(e)))
-
+    LOG.error(e)
+    traceback.print_exc()

@@ -1,14 +1,11 @@
 #  import argparse
 from typing import List
-import logging
 import argparse
-import marmalade
 from marmalade.main.commands import Command, UpdateCommand, InstallCommand
 from marmalade.main.errors import Exceptions
 from marmalade.envs import Environments
 from marmalade.utils.env import Env
-
-LOG = logging.getLogger(__name__)
+from marmalade import LOG, configure_logging
 
 
 def _parse_single_update_command(env: str) -> UpdateCommand:
@@ -57,19 +54,18 @@ def _args_parse():
     )
     parser.add_argument("command", choices=["install", "update"])
     args, restArgs = parser.parse_known_args()
+
+    configure_logging(args.verbose)
+    LOG.debug("Log level set to %s.", args.verbose)
+
     commands = _parse_command_data(args.command, restArgs)
     return {
         "command": args.command,
-        "commands": commands,
-        "verbose": args.verbose
+        "commands": commands
     }
 
 
 def main(argv=None):
     args = _args_parse()
-    marmalade.configure_logging(args["verbose"])
-    LOG.debug("Log level set to %s. Command (%s) rest args (%s)",
-              args["verbose"],
-              args["command"],
-              args["commands"])
-    print(args)
+    for command in args["commands"]:
+        command.execute()
