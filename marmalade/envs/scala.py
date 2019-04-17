@@ -1,18 +1,25 @@
 from subprocess import call
-from os import system
 from marmalade.utils.env import Env
 from marmalade.utils.version import Version
 from marmalade.utils.remoteversiongetter import RemoteVersionResolverGitHub
 
 
-class EnvGradle(Env):
+class RemoteVersionResolverScala(RemoteVersionResolverGitHub):
+    def __init__(self):
+        super().__init__("scala/scala")
+
+    def get_version_string(self, resp) -> Version:
+        return resp["tag_name"][1:]
+
+
+class EnvScala(Env):
     def __init__(self, envs_full_path: str):
-        rvr = RemoteVersionResolverGitHub("gradle/gradle")
-        super().__init__(name="gradle",
+        rvr = RemoteVersionResolverScala()
+        super().__init__(name="scala",
                          envs_full_path=envs_full_path,
                          remote_version_resolver=rvr)
         self.__URL = \
-            "https://services.gradle.org/distributions/gradle-{}-bin.zip"
+            "https://downloads.lightbend.com/scala/{}/scala-{}.tgz"
 
     def get_download_link(self, version: Version) -> str:
         ver_str = version.get_version_string()
@@ -22,8 +29,5 @@ class EnvGradle(Env):
                      file_path_fp: str,
                      dest_dir_fp: str,
                      version: Version):
-        unziped_folder = dest_dir_fp + "/gradle-" + \
-                         version.get_version_string()
-        call(["unzip", "-qq", file_path_fp, "-d", dest_dir_fp])
-        system("mv " + unziped_folder + "/* " + dest_dir_fp)
-        call(["rm", "-rf", unziped_folder])
+        call(["tar", "xf", file_path_fp, "--strip-components=1",
+              "-C", dest_dir_fp])
